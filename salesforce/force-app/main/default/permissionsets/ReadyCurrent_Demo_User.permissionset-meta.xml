@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+  <label>ReadyCurrent Demo User</label>
+  <classAccesses><apexClass>ReadyCurrentDemoService</apexClass><enabled>true</enabled></classAccesses>
+  <classAccesses><apexClass>ResilienceApprovalEndpoint</apexClass><enabled>true</enabled></classAccesses>
+  <classAccesses><apexClass>ResilienceApprovalProcessor</apexClass><enabled>true</enabled></classAccesses>
+  <fieldPermissions><field>Resilience_Outreach_Run__c.Status__c</field><editable>true</editable><readable>true</readable></fieldPermissions>
+  <fieldPermissions><field>Resilience_Outreach_Run__c.Delivery_Mode__c</field><editable>true</editable><readable>true</readable></fieldPermissions>
+  <fieldPermissions><field>Resilience_Outreach_Run__c.Channel_Id__c</field><editable>true</editable><readable>true</readable></fieldPermissions>
+  <fieldPermissions><field>Resilience_Outreach_Run__c.Slack_Message_Timestamp__c</field><editable>true</editable><readable>true</readable></fieldPermissions>
+  <fieldPermissions><field>Resilience_Outreach_Run__c.Approver_User_Id__c</field><editable>true</editable><readable>true</readable></fieldPermissions>
+  <fieldPermissions><field>Resilience_Outreach_Run__c.Reaction_Consumed__c</field><editable>true</editable><readable>true</readable></fieldPermissions>
+  <fieldPermissions><field>Resilience_Outreach_Run__c.Test_Delivery_Email__c</field><editable>true</editable><readable>true</readable></fieldPermissions>
+  <fieldPermissions><field>Resilience_Outreach_Run__c.Last_Error__c</field><editable>true</editable><readable>true</readable></fieldPermissions>
+  <fieldPermissions><field>Resilience_Outreach_Draft__c.Account__c</field><editable>true</editable><readable>true</readable></fieldPermissions>
+  <fieldPermissions><field>Resilience_Outreach_Draft__c.Contact__c</field><editable>true</editable><readable>true</readable></fieldPermissions>
+  <fieldPermissions><field>Resilience_Outreach_Draft__c.Recipient_Display__c</field><editable>true</editable><readable>true</readable></fieldPermissions>
+  <fieldPermissions><field>Resilience_Outreach_Draft__c.Subject__c</field><editable>true</editable><readable>true</readable></fieldPermissions>
+  <fieldPermissions><field>Resilience_Outreach_Draft__c.Body__c</field><editable>true</editable><readable>true</readable></fieldPermissions>
+  <fieldPermissions><field>Resilience_Outreach_Draft__c.Status__c</field><editable>true</editable><readable>true</readable></fieldPermissions>
+  <fieldPermissions><field>Resilience_Outreach_Draft__c.Rank__c</field><editable>true</editable><readable>true</readable></fieldPermissions>
+  <fieldPermissions><field>Resilience_Outreach_Draft__c.Send_Error__c</field><editable>true</editable><readable>true</readable></fieldPermissions>
+  <objectPermissions><object>Resilience_Outreach_Run__c</object><allowCreate>true</allowCreate><allowDelete>false</allowDelete><allowEdit>true</allowEdit><allowRead>true</allowRead><modifyAllRecords>false</modifyAllRecords><viewAllRecords>false</viewAllRecords></objectPermissions>
+  <objectPermissions><object>Resilience_Outreach_Draft__c</object><allowCreate>true</allowCreate><allowDelete>false</allowDelete><allowEdit>true</allowEdit><allowRead>true</allowRead><modifyAllRecords>false</modifyAllRecords><viewAllRecords>false</viewAllRecords></objectPermissions>
+</PermissionSet>

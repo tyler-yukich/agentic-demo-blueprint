@@ -1,0 +1,36 @@
+name: Verify public blueprint
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  level-1:
+    name: Level 1 · React and public safety
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run verify
+      - run: npm audit --audit-level=moderate
+
+  level-3:
+    name: Level 3 · Slack hosted bridge
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: slack/approval-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - run: deno task test

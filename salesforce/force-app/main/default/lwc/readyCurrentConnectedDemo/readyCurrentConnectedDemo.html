@@ -1,0 +1,12 @@
+<template>
+  <lightning-card title="ReadyCurrent resilience demo" icon-name="standard:account">
+    <div class="slds-var-p-around_medium">
+      <template lwc:if={dashboard}>
+        <div class="metrics"><div><span>Accounts</span><strong>{dashboard.accountCount}</strong></div><div><span>Drafts</span><strong>{dashboard.draftCount}</strong></div><div><span>Connection</span><strong>Live</strong></div></div>
+        <template lwc:if={hasRun}><p class="slds-var-m-top_medium">Latest run: <strong>{dashboard.latestRun.Name}</strong> · {dashboard.latestRun.Status__c} · {dashboard.latestRun.Delivery_Mode__c}</p></template>
+        <p class="truth slds-var-m-top_medium">Connected Salesforce records. Segmentation remains fixture-driven until replaced with org-specific Data 360 logic.</p>
+      </template>
+      <template lwc:if={error}><p class="slds-text-color_error">The demo data could not be loaded. Check Apex access and the browser console.</p></template>
+    </div>
+  </lightning-card>
+</template>
