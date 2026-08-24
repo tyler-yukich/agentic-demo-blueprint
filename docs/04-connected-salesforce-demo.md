@@ -16,9 +16,16 @@ fixture values at one service boundary.
 
 The included deployment creates a separate **ReadyCurrent** Lightning app. It
 does not replace an org's existing navigation, branding, home pages, Accounts,
-Contacts, or demo applications. The React bundle is loaded from the scoped
-`ReadyCurrentEmbedded` static resource and receives only the aggregate view
-model returned by `ReadyCurrentDemoService`.
+Contacts, or demo applications. The React bundle runs in an isolated HTML frame
+inside the scoped `ReadyCurrentEmbedded` static resource. The Lightning wrapper
+sends only the aggregate view model returned by `ReadyCurrentDemoService` over
+a correlated `postMessage` boundary. This avoids relying on cross-sandbox
+global variables under Lightning Web Security.
+
+The embedded Vite build explicitly replaces React's Node-only production flag.
+`npm run embedded:check` fails if an unresolved `process.env` reference returns
+or if the generated frame no longer contains the expected mount and asset
+references. This check is part of `npm run verify`.
 
 The fictional dataset can safely coexist with other demo personas:
 

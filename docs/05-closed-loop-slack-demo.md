@@ -25,6 +25,11 @@ Use Slack's hosted event trigger rather than a polling job or laptop process.
 The hosted function obtains Salesforce OAuth from Slack's encrypted store and
 forwards the minimal event contract to Apex REST.
 
+The custom OAuth provider uses PKCE for the user authorization flow, while
+Slack performs the server-side token exchange with the Salesforce consumer
+secret kept in its encrypted external-auth store. The public repository holds
+neither the secret nor environment-specific identifiers.
+
 ## Proof-mode delivery
 
 The safe default is `DRY_RUN`: it sends no email and records completion only.

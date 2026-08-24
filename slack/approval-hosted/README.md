@@ -8,10 +8,11 @@ This Slack-hosted reference listens for a ✅ reaction and forwards a compact, a
 2. Deploy Level 2 first. It includes the dedicated
    `ReadyCurrent_Slack_Hosted_Bridge` External Client Application with Slack's
    callback URL, PKCE, and the required `api`, identity, and refresh-token
-   scopes. It does not require a consumer secret.
+   scopes.
 3. In Salesforce Setup, open **External Client App Manager → ReadyCurrent Slack
    Hosted Bridge → Settings → OAuth Settings → Consumer Key and Secret**.
-   Complete identity verification and copy only the generated consumer key.
+   Complete identity verification and copy the generated consumer key. Keep the
+   consumer secret out of the project and terminal history.
 4. Create a dedicated Slack channel, such as `#readycurrent-approvals`. Some
    Enterprise Grid policies block API-created channels; creating it in Slack's
    normal UI is an acceptable one-time admin step.
@@ -22,10 +23,11 @@ This Slack-hosted reference listens for a ✅ reaction and forwards a compact, a
 6. Run `deno task test`, `slack manifest validate`, `slack auth login`, and
    `slack doctor`.
 7. Use `slack run` for a development deployment or `slack deploy` for a hosted
-   deployment. Complete Salesforce external authorization when Slack prompts.
-   If Slack requires an encrypted client secret despite PKCE, retrieve the
-   dedicated app's secret through the same verified Salesforce page and add it
-   with `slack external-auth add-secret`; never place it in this repository.
+   deployment. Add the dedicated Salesforce consumer secret with
+   `slack external-auth add-secret` when prompted; Slack stores it in the
+   encrypted external-auth store. Complete Salesforce external authorization
+   afterward. Never place the secret in this repository, a command argument, or
+   a captured log.
 8. Create the event trigger with
    `slack trigger create --trigger-def triggers/reaction_added.ts`.
 9. Write the returned channel ID and the approval message timestamp onto the

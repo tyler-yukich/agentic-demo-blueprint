@@ -1,6 +1,6 @@
 .readycurrent-root { font-family: Arial, Helvetica, system-ui, sans-serif; color: #123341; background: #f4f7f7; font-synthesis: none; --navy:#073b4c; --teal:#0b7a75; --mint:#58d6c7; --yellow:#ffca4b; --line:#dce7e7; --muted:#667e86; }
 * { box-sizing: border-box; }
-html,body,#root { width:100%; max-width:100%; overflow-x:hidden; }
+html,body,#root,#readycurrent-embedded-root { width:100%; max-width:100%; min-height:100%; overflow-x:hidden; }
 body { margin: 0; min-width: 320px; min-height: 100vh; }
 button, textarea, input { font: inherit; }
 button { cursor: pointer; }

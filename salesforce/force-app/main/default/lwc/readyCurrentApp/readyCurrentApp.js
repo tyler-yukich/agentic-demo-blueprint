@@ -1,40 +1,48 @@
 import { LightningElement } from 'lwc';
-import { loadScript, loadStyle } from 'lightning/platformResourceLoader';
 import READY_CURRENT from '@salesforce/resourceUrl/ReadyCurrentEmbedded';
 import getDashboard from '@salesforce/apex/ReadyCurrentDemoService.getDashboard';
 
 export default class ReadyCurrentApp extends LightningElement {
   error;
-  _booting = false;
-  _mountedHost;
+  dashboard;
+  frameLoaded = false;
+  channel;
 
-  renderedCallback() {
-    const host = this.refs?.host;
-    if (!host || this._booting || host.firstChild) return;
-    this._booting = true;
-    Promise.all([
-      loadStyle(this, READY_CURRENT + '/app.css'),
-      loadScript(this, READY_CURRENT + '/app.js'),
-      getDashboard()
-    ]).then(([, , dashboard]) => {
-      const app = window.ReadyCurrentEmbedded;
-      if (!app || typeof app.mount !== 'function') {
-        throw new Error('The embedded application did not register its mount function.');
-      }
-      this._mountedHost = host;
-      app.mount(host, { dashboard });
-    }).catch((failure) => {
-      this.error = failure?.body?.message || failure?.message || 'Unexpected initialization error.';
-    }).finally(() => {
-      this._booting = false;
-    });
+  constructor() {
+    super();
+    this.channel = `${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`;
   }
 
-  disconnectedCallback() {
-    try {
-      window.ReadyCurrentEmbedded?.unmount?.(this._mountedHost);
-    } catch {
-      // Teardown is best effort during Lightning navigation.
-    }
+  get frameUrl() {
+    return `${READY_CURRENT}/index.html?channel=${encodeURIComponent(this.channel)}`;
+  }
+
+  connectedCallback() {
+    getDashboard()
+      .then((dashboard) => {
+        this.dashboard = JSON.parse(JSON.stringify(dashboard));
+        this.postDashboard();
+      })
+      .catch((failure) => {
+        this.error = failure?.body?.message || failure?.message || 'Live dashboard counts are unavailable.';
+      });
+  }
+
+  handleFrameLoad() {
+    this.frameLoaded = true;
+    this.postDashboard();
+  }
+
+  postDashboard() {
+    if (!this.frameLoaded || !this.dashboard) return;
+    const frame = this.template.querySelector('iframe');
+    if (!frame?.contentWindow) return;
+
+    const targetOrigin = new URL(READY_CURRENT, window.location.href).origin;
+    frame.contentWindow.postMessage({
+      type: 'readycurrent:dashboard',
+      channel: this.channel,
+      dashboard: this.dashboard
+    }, targetOrigin);
   }
 }

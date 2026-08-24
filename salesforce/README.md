@@ -68,10 +68,12 @@ eligibility logic remains explicit simulation until you replace
 
 The package also includes a dedicated, PKCE-enabled External Client
 Application for the optional Beacon Slack bridge. Its callback is Slack's
-hosted external-auth callback, its consumer secret is optional, and its scopes
-are limited to identity, API access, and refresh tokens. Retrieve its generated
-consumer key from Salesforce only when installing Level 3; never commit that
-value.
+hosted external-auth callback and its scopes are limited to identity, API
+access, and refresh tokens. Slack's custom external-auth provider still needs
+the generated consumer secret for the server-side token exchange. Retrieve the
+consumer key and secret only while installing Level 3, place the secret directly
+in Slack's encrypted external-auth store, and never put either value in source
+control.
 
 ## Delivery safety
 

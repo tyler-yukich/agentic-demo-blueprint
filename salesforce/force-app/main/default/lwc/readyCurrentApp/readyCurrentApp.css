@@ -1,3 +1,25 @@
-:host { display: block; background: var(--slds-g-color-surface-2, #f3f3f3); }
-.readycurrent-host { display: block; }
-.readycurrent-error { margin: var(--slds-g-spacing-4, 1rem); padding: var(--slds-g-spacing-4, 1rem); border: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-palette-red-40, #ba0517); border-radius: var(--slds-g-radius-border-2, 0.25rem); background: var(--slds-g-color-surface-2, #f3f3f3); color: var(--slds-g-color-error-base-20, #ba0517); display: grid; gap: var(--slds-g-spacing-1, 0.25rem); }
+:host {
+  display: block;
+  min-height: calc(100vh - 9rem);
+  background: var(--slds-g-color-surface-2, #f3f3f3);
+}
+
+.readycurrent-frame {
+  display: block;
+  width: 100%;
+  height: calc(100vh - 9rem);
+  min-height: 760px;
+  border: 0;
+  background: #f4f7f7;
+}
+
+.readycurrent-warning {
+  margin: var(--slds-g-spacing-3, 0.75rem);
+  padding: var(--slds-g-spacing-3, 0.75rem);
+  border: var(--slds-g-sizing-border-1, 1px) solid #dd7a01;
+  border-radius: var(--slds-g-radius-border-2, 0.25rem);
+  background: #fff7e6;
+  color: #5f3e00;
+  display: grid;
+  gap: var(--slds-g-spacing-1, 0.25rem);
+}

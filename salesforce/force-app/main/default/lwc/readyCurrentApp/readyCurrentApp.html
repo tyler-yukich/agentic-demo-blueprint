@@ -1,9 +1,15 @@
 <template>
-  <div class="readycurrent-host" lwc:ref="host"></div>
   <template lwc:if={error}>
-    <div class="readycurrent-error" role="alert">
-      <strong>ReadyCurrent could not load.</strong>
+    <div class="readycurrent-warning" role="status">
+      <strong>ReadyCurrent is using its staged dashboard values.</strong>
       <span>{error}</span>
     </div>
   </template>
+  <iframe
+    class="readycurrent-frame"
+    src={frameUrl}
+    title="ReadyCurrent connected demo"
+    sandbox="allow-scripts allow-same-origin"
+    onload={handleFrameLoad}
+  ></iframe>
 </template>
