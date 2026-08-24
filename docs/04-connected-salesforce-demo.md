@@ -14,6 +14,20 @@ fixture values at one service boundary.
 7. Open the sample Lightning tab.
 8. Verify that outreach run and draft status changes persist in Salesforce.
 
+The included deployment creates a separate **ReadyCurrent** Lightning app. It
+does not replace an org's existing navigation, branding, home pages, Accounts,
+Contacts, or demo applications. The React bundle is loaded from the scoped
+`ReadyCurrentEmbedded` static resource and receives only the aggregate view
+model returned by `ReadyCurrentDemoService`.
+
+The fictional dataset can safely coexist with other demo personas:
+
+- Account keys use `RC-ACC-###`;
+- Contact keys use `RC-CON-###`;
+- the outreach run uses `readycurrent-seed-v1`;
+- service and approval queries reject records outside those namespaces; and
+- `scripts/cleanup.apex` deletes only records carrying those keys.
+
 ## What to connect first
 
 - seller identity;

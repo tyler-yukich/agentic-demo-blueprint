@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+  <brand><headerColor>#073B4C</headerColor><shouldOverrideOrgTheme>false</shouldOverrideOrgTheme></brand>
+  <label>ReadyCurrent</label><description>Fictional connected backup-power and outage-resilience demo.</description>
+  <uiType>Lightning</uiType><navType>Standard</navType><formFactors>Large</formFactors><tabs>ReadyCurrentHome</tabs>
+  <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled><isNavPersonalizationDisabled>false</isNavPersonalizationDisabled><isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+</CustomApplication>

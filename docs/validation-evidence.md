@@ -19,18 +19,27 @@ must complete in their own Salesforce and Slack environments.
 
 - Metadata dry-run: compiled against an authenticated Salesforce demo org
   without mutating it.
-- Disposable scratch-org deployment: passed.
+- Deployment into an existing populated Salesforce demo org: passed without
+  replacing or modifying its existing app.
 - Permission-set assignment: passed.
-- Apex: 5 test methods passed, 0 failed, with 79% aggregate run coverage.
-- Fixture seed: created exactly 100 accounts and 21 outreach drafts.
-- Salesforce Code Analyzer: no critical, high, or moderate findings. Remaining
-  findings were low-severity documentation, test-context, and Queueable
-  finalizer recommendations.
+- Apex after deployment and seeding: 5 test methods passed, 0 failed.
+- Fixture seed: created exactly 100 scoped Accounts, 100 scoped Contacts, 36
+  elevated-risk Accounts, 21 eligible Accounts, and 21 outreach drafts.
+- Idempotency: a second seed run completed successfully and left all five
+  counts unchanged.
+- Approval state: the dedicated run was verified as `Awaiting Approval`,
+  `DRY_RUN`, and not consumed.
+- Salesforce Code Analyzer: the available ESLint and regex engines reported no
+  critical, high, or moderate authored-source findings. Java-dependent PMD,
+  Salesforce Graph Engine, and copy/paste detection were unavailable in the
+  validation environment and are disabled in `salesforce/code-analyzer.yml`.
 
 ### Level 3
 
 - Deno format and lint: passed.
 - Hosted bridge unit test: passed.
+- Slack CLI manifest validation: passed. Slack correctly emitted the expected
+  reminder to configure external-auth credentials at deployment time.
 - Event filter, strict payload mapping, and acknowledgement behavior are covered
   by the unit test.
 
@@ -43,6 +52,8 @@ must complete in their own Salesforce and Slack environments.
   External Client App and Slack encrypted-secret configuration.
 - Agentforce is optional and is not deployed by this repository.
 - No live email is sent by the default `DRY_RUN` path.
+- The embedded Lightning app still requires a visual smoke check in each target
+  org because Lightning Web Security, themes, and browser policies vary.
 
 Use these boundaries in every demonstration. A connected demo is strongest when
 the audience can tell which parts are live, staged, and intentionally protected.

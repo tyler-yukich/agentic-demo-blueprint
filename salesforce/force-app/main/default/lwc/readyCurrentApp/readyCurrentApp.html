@@ -1,0 +1,9 @@
+<template>
+  <div class="readycurrent-host" lwc:ref="host"></div>
+  <template lwc:if={error}>
+    <div class="readycurrent-error" role="alert">
+      <strong>ReadyCurrent could not load.</strong>
+      <span>{error}</span>
+    </div>
+  </template>
+</template>

@@ -1,0 +1,3 @@
+:host { display: block; background: var(--slds-g-color-surface-2, #f3f3f3); }
+.readycurrent-host { display: block; }
+.readycurrent-error { margin: var(--slds-g-spacing-4, 1rem); padding: var(--slds-g-spacing-4, 1rem); border: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-palette-red-40, #ba0517); border-radius: var(--slds-g-radius-border-2, 0.25rem); background: var(--slds-g-color-surface-2, #f3f3f3); color: var(--slds-g-color-error-base-20, #ba0517); display: grid; gap: var(--slds-g-spacing-1, 0.25rem); }

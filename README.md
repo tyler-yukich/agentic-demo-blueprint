@@ -27,6 +27,11 @@ outreach, and hands control to a seller before anything is sent.
 Start with [Choose your level](docs/00-choose-your-level.md). Each level stands
 on its own; you do not need Slack to learn from the React or Salesforce layers.
 
+The Level 2 package can also be installed beside an existing demo. It creates a
+separate **ReadyCurrent** Lightning app, uses namespaced fictional record keys,
+and includes an equally scoped cleanup script. See the
+[connected Salesforce guide](salesforce/README.md).
+
 ## Quick start — Level 1
 
 Prerequisites: Node.js 22 or newer.

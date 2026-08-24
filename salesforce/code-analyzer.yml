@@ -1,0 +1,9 @@
+# The public quickstart has no Java runtime. Re-enable these three engines in
+# environments with Java 11+; ESLint, regex, retire-js, ApexGuru, and Flow remain available.
+engines:
+  cpd:
+    disable_engine: true
+  pmd:
+    disable_engine: true
+  sfge:
+    disable_engine: true

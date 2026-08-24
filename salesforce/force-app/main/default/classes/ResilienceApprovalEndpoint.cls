@@ -70,7 +70,8 @@ global with sharing class ResilienceApprovalEndpoint {
     private static Resilience_Outreach_Run__c findRun(String channelId, String messageTimestamp) {
         List<Resilience_Outreach_Run__c> runs = [
             SELECT Id, Reaction_Consumed__c FROM Resilience_Outreach_Run__c
-            WHERE Channel_Id__c = :channelId AND Slack_Message_Timestamp__c = :messageTimestamp
+            WHERE Request_Key__c LIKE 'readycurrent-%' AND Channel_Id__c = :channelId
+                AND Slack_Message_Timestamp__c = :messageTimestamp
             WITH USER_MODE LIMIT 1
         ];
         return runs.isEmpty() ? null : runs[0];

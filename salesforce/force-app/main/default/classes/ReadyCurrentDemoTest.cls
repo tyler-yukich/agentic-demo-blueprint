@@ -1,12 +1,16 @@
 @IsTest
 private class ReadyCurrentDemoTest {
     @TestSetup static void setupData() {
-        Account account = new Account(Name = 'Cedar Peak Co-op');
-        insert account;
+        Account account = new Account(
+            Name = 'Cedar Peak Co-op', ReadyCurrent_Demo_Key__c = 'RC-ACC-TEST',
+            ReadyCurrent_Outage_Exposure__c = 'Elevated', ReadyCurrent_Credit_Eligible__c = true
+        );
+        Account unrelatedAccount = new Account(Name = 'Unrelated Org Fixture');
+        insert new List<Account>{ account, unrelatedAccount };
         Contact contact = new Contact(FirstName = 'Nora', LastName = 'Chen', Email = 'nora.chen@cedarpeak.example', AccountId = account.Id);
         insert contact;
         Resilience_Outreach_Run__c run = new Resilience_Outreach_Run__c(
-            Request_Key__c = 'fixture-run', Channel_Id__c = 'C' + '12345678', Slack_Message_Timestamp__c = '1234567890.123456'
+            Request_Key__c = 'readycurrent-fixture-run', Channel_Id__c = 'C' + '12345678', Slack_Message_Timestamp__c = '1234567890.123456'
         );
         insert run;
         List<Resilience_Outreach_Draft__c> drafts = new List<Resilience_Outreach_Draft__c>();
@@ -21,6 +25,9 @@ private class ReadyCurrentDemoTest {
     @IsTest static void dashboardReadsConnectedRecords() {
         Map<String, Object> dashboard = ReadyCurrentDemoService.getDashboard();
         Assert.areEqual(true, dashboard.get('connected'), 'Connected flag should be true.');
+        Assert.areEqual(1, dashboard.get('accountCount'), 'Unrelated org accounts must be excluded.');
+        Assert.areEqual(1, dashboard.get('atRiskCount'), 'Only ReadyCurrent elevated accounts are counted.');
+        Assert.areEqual(1, dashboard.get('eligibleCount'), 'Only ReadyCurrent eligible accounts are counted.');
         Assert.areEqual(3, dashboard.get('draftCount'), 'Three fixture drafts should be visible.');
     }
     @IsTest static void reactionQueuesDryRun() {

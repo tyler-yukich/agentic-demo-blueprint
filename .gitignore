@@ -18,3 +18,8 @@ certs/
 salesforce/.sf/
 salesforce/.sfdx/
 slack/approval-hosted/.slack/
+!slack/approval-hosted/.slack/
+slack/approval-hosted/.slack/*
+!slack/approval-hosted/.slack/config.json
+!slack/approval-hosted/.slack/hooks.json
+!slack/approval-hosted/.slack/.gitignore

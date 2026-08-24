@@ -6,18 +6,31 @@ import {
   UsersRound, Wifi, Wrench
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
+import markUrl from './assets/readycurrent-mark.svg';
 import { accounts, atRiskAccounts, businessAccount, dateFromToday, eligibleAccounts, householdAccount, workflowSummary } from './data/fixtures';
 import type { DemoAccount, ToolId, ToolState } from './data/types';
 import { beaconReply, defaultTools, toolLabels } from './lib/agent';
 
 type Page = 'home' | 'business' | 'consumer' | 'beacon';
 
+export interface ConnectedDashboard {
+  accountCount: number;
+  atRiskCount: number;
+  eligibleCount: number;
+  draftCount: number;
+  latestRunStatus?: string;
+}
+
+export interface AppProps {
+  dashboard?: ConnectedDashboard;
+}
+
 const money = new Intl.NumberFormat('en-CA', { style: 'currency', currency: 'CAD', maximumFractionDigits: 0 });
 
 function Brand() {
   return (
     <div className="brand">
-      <img src="/readycurrent-mark.svg" alt="" />
+      <img src={markUrl} alt="" />
       <div><strong>ReadyCurrent</strong><span>Resilience workspace</span></div>
     </div>
   );
@@ -105,7 +118,7 @@ function WorkflowCard() {
   );
 }
 
-function SellerHome({ navigate }: { navigate: (page: Page) => void }) {
+function SellerHome({ navigate, dashboard }: { navigate: (page: Page) => void; dashboard?: ConnectedDashboard }) {
   const pipeline = accounts.reduce((total, account) => total + account.annualValue, 0);
   const actions: Array<[string, string, LucideIcon]> = [
     ['Review outage-resilience drafts', `${workflowSummary.drafts} staged messages`, Mail],
@@ -116,10 +129,10 @@ function SellerHome({ navigate }: { navigate: (page: Page) => void }) {
     <main>
       <header className="page-header"><div><span className="eyebrow">Monday · {dateFromToday(0)}</span><h1>Good morning, Avery</h1><p>Here is what deserves your attention across the resilience portfolio.</p></div><div className="avatar">AC</div></header>
       <div className="metrics">
-        <Metric icon={BriefcaseBusiness} label="Open portfolio" value={money.format(pipeline)} detail="100 fictional accounts" />
-        <Metric icon={CloudLightning} label="Elevated exposure" value={String(atRiskAccounts.length)} detail="Regional risk window" tone="amber" />
-        <Metric icon={ShieldCheck} label="Credit eligible" value={String(eligibleAccounts.length)} detail="Staged policy result" tone="blue" />
-        <Metric icon={BatteryCharging} label="Monitoring active" value="64%" detail="Across installed base" tone="mint" />
+        <Metric icon={BriefcaseBusiness} label="Open portfolio" value={money.format(pipeline)} detail={`${dashboard?.accountCount ?? accounts.length} fictional accounts`} />
+        <Metric icon={CloudLightning} label="Elevated exposure" value={String(dashboard?.atRiskCount ?? atRiskAccounts.length)} detail="Regional risk window" tone="amber" />
+        <Metric icon={ShieldCheck} label="Credit eligible" value={String(dashboard?.eligibleCount ?? eligibleAccounts.length)} detail="Staged policy result" tone="blue" />
+        <Metric icon={BatteryCharging} label="Drafts ready" value={String(dashboard?.draftCount ?? workflowSummary.drafts)} detail={dashboard?.latestRunStatus ?? 'Visual prototype'} tone="mint" />
       </div>
       <WorkflowCard />
       <div className="two-column">
@@ -195,20 +208,20 @@ function BeaconPage() {
           const icons = { outlook: Mail, calendar: CalendarDays, sharepoint: FileText }; const Icon = icons[id];
           return <label className="tool-toggle" key={id}><span className="tool-icon"><Icon size={19} /></span><span><strong>{toolLabels[id].name}</strong><small>{toolLabels[id].description}</small></span><input type="checkbox" checked={tools[id]} onChange={() => setTools((state) => ({ ...state, [id]: !state[id] }))} /><span className="switch" /></label>;
         })}<div className="tool-map"><div className="tool-node"><Mail size={14} /></div><div className="tool-node"><CalendarDays size={14} /></div><div className="tool-node"><FileText size={14} /></div><span /><div className="data-node"><CloudLightning size={16} />Unified context</div><span /><div className="agent-node"><Bot size={16} />Beacon</div></div></aside>
-        <section className="chat-panel"><div className="chat-header"><div className="beacon-avatar"><img src="/readycurrent-mark.svg" alt="" /></div><div><strong>Beacon</strong><span>ReadyCurrent assistant · deterministic</span></div><span className="online-dot" /></div><div className="messages" aria-live="polite">{messages.map((message, index) => <div key={index} className={`message ${message.role}`}><span>{message.body}</span>{message.role === 'assistant' && <small>Staged response · no model call</small>}</div>)}</div><div className="suggestions">{['Explain the outage segment', 'Schedule a meeting', 'What did the last email say?'].map((text) => <button key={text} onClick={() => setInput(text)}>{text}</button>)}</div><div className="composer"><textarea value={input} onChange={(event) => setInput(event.target.value)} onKeyDown={(event) => { if (event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); send(); } }} aria-label="Message Beacon" /><button onClick={send} aria-label="Send message"><ChevronRight size={20} /></button></div></section>
+        <section className="chat-panel"><div className="chat-header"><div className="beacon-avatar"><img src={markUrl} alt="" /></div><div><strong>Beacon</strong><span>ReadyCurrent assistant · deterministic</span></div><span className="online-dot" /></div><div className="messages" aria-live="polite">{messages.map((message, index) => <div key={index} className={`message ${message.role}`}><span>{message.body}</span>{message.role === 'assistant' && <small>Staged response · no model call</small>}</div>)}</div><div className="suggestions">{['Explain the outage segment', 'Schedule a meeting', 'What did the last email say?'].map((text) => <button key={text} onClick={() => setInput(text)}>{text}</button>)}</div><div className="composer"><textarea value={input} onChange={(event) => setInput(event.target.value)} onKeyDown={(event) => { if (event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); send(); } }} aria-label="Message Beacon" /><button onClick={send} aria-label="Send message"><ChevronRight size={20} /></button></div></section>
       </div>
     </main>
   );
 }
 
-export default function App() {
+export default function App({ dashboard }: AppProps) {
   const [page, setPage] = useState<Page>('home');
   return (
     <div className="app-shell">
       <Navigation page={page} setPage={setPage} />
       <div className="content-shell">
-        <div className="topbar"><span><Wifi size={14} /> Demo workspace</span><span><Power size={14} /> Level 1 · visual prototype</span></div>
-        {page === 'home' && <SellerHome navigate={setPage} />}
+        <div className="topbar"><span><Wifi size={14} /> Demo workspace</span><span><Power size={14} /> {dashboard ? 'Level 2 · connected Salesforce demo' : 'Level 1 · visual prototype'}</span></div>
+        {page === 'home' && <SellerHome navigate={setPage} dashboard={dashboard} />}
         {page === 'business' && <ProfilePage account={businessAccount} />}
         {page === 'consumer' && <ProfilePage account={householdAccount} consumer />}
         {page === 'beacon' && <BeaconPage />}

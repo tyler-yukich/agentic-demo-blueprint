@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
   <label>ReadyCurrent Demo User</label>
+  <applicationVisibilities><application>ReadyCurrent_Embedded</application><visible>true</visible></applicationVisibilities>
   <classAccesses><apexClass>ReadyCurrentDemoService</apexClass><enabled>true</enabled></classAccesses>
   <classAccesses><apexClass>ResilienceApprovalEndpoint</apexClass><enabled>true</enabled></classAccesses>
   <classAccesses><apexClass>ResilienceApprovalProcessor</apexClass><enabled>true</enabled></classAccesses>
@@ -20,6 +21,20 @@
   <fieldPermissions><field>Resilience_Outreach_Draft__c.Status__c</field><editable>true</editable><readable>true</readable></fieldPermissions>
   <fieldPermissions><field>Resilience_Outreach_Draft__c.Rank__c</field><editable>true</editable><readable>true</readable></fieldPermissions>
   <fieldPermissions><field>Resilience_Outreach_Draft__c.Send_Error__c</field><editable>true</editable><readable>true</readable></fieldPermissions>
+  <fieldPermissions><field>Account.ReadyCurrent_Demo_Key__c</field><editable>false</editable><readable>true</readable></fieldPermissions>
+  <fieldPermissions><field>Account.ReadyCurrent_Segment__c</field><editable>false</editable><readable>true</readable></fieldPermissions>
+  <fieldPermissions><field>Account.ReadyCurrent_City__c</field><editable>false</editable><readable>true</readable></fieldPermissions>
+  <fieldPermissions><field>Account.ReadyCurrent_Region__c</field><editable>false</editable><readable>true</readable></fieldPermissions>
+  <fieldPermissions><field>Account.ReadyCurrent_Outage_Exposure__c</field><editable>false</editable><readable>true</readable></fieldPermissions>
+  <fieldPermissions><field>Account.ReadyCurrent_Credit_Eligible__c</field><editable>false</editable><readable>true</readable></fieldPermissions>
+  <fieldPermissions><field>Account.ReadyCurrent_Annual_Value__c</field><editable>false</editable><readable>true</readable></fieldPermissions>
+  <fieldPermissions><field>Account.ReadyCurrent_Installed_Product__c</field><editable>false</editable><readable>true</readable></fieldPermissions>
+  <fieldPermissions><field>Account.ReadyCurrent_Monitoring_Plan__c</field><editable>false</editable><readable>true</readable></fieldPermissions>
+  <fieldPermissions><field>Account.ReadyCurrent_Last_Active_Days__c</field><editable>false</editable><readable>true</readable></fieldPermissions>
+  <fieldPermissions><field>Contact.ReadyCurrent_Demo_Key__c</field><editable>false</editable><readable>true</readable></fieldPermissions>
+  <objectPermissions><object>Account</object><allowCreate>false</allowCreate><allowDelete>false</allowDelete><allowEdit>false</allowEdit><allowRead>true</allowRead><modifyAllRecords>false</modifyAllRecords><viewAllRecords>false</viewAllRecords></objectPermissions>
+  <objectPermissions><object>Contact</object><allowCreate>false</allowCreate><allowDelete>false</allowDelete><allowEdit>false</allowEdit><allowRead>true</allowRead><modifyAllRecords>false</modifyAllRecords><viewAllRecords>false</viewAllRecords></objectPermissions>
   <objectPermissions><object>Resilience_Outreach_Run__c</object><allowCreate>true</allowCreate><allowDelete>false</allowDelete><allowEdit>true</allowEdit><allowRead>true</allowRead><modifyAllRecords>false</modifyAllRecords><viewAllRecords>false</viewAllRecords></objectPermissions>
   <objectPermissions><object>Resilience_Outreach_Draft__c</object><allowCreate>true</allowCreate><allowDelete>false</allowDelete><allowEdit>true</allowEdit><allowRead>true</allowRead><modifyAllRecords>false</modifyAllRecords><viewAllRecords>false</viewAllRecords></objectPermissions>
+  <tabSettings><tab>ReadyCurrentHome</tab><visibility>Visible</visibility></tabSettings>
 </PermissionSet>

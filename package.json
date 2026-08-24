@@ -1,6 +1,6 @@
 {
   "name": "agentic-demo-blueprint",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "engines": {
@@ -9,14 +9,17 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:embedded": "tsc -b && vite build --config vite.embedded.config.ts",
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc -b --pretty false",
     "fixtures:check": "node scripts/generate-fixtures.mjs --check",
     "fixtures:write": "node scripts/generate-fixtures.mjs --write",
+    "salesforce:seed:check": "node scripts/generate-salesforce-seed.mjs --check",
+    "salesforce:seed:write": "node scripts/generate-salesforce-seed.mjs --write",
     "safety": "node scripts/public-safety.mjs",
-    "verify": "npm run fixtures:check && npm run typecheck && npm test && npm run build && npm run safety"
+    "verify": "npm run fixtures:check && npm run salesforce:seed:check && npm run typecheck && npm test && npm run build && npm run build:embedded && npm run safety"
   },
   "dependencies": {
     "lucide-react": "^1.31.0",
