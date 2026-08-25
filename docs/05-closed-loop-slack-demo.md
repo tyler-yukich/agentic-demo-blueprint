@@ -25,6 +25,10 @@ Use Slack's hosted event trigger rather than a polling job or laptop process.
 The hosted function obtains Salesforce OAuth from Slack's encrypted store and
 forwards the minimal event contract to Apex REST.
 
+After installation, invite **Beacon Approval Bridge** to the approval channel.
+Creating a channel-scoped event trigger is not sufficient by itself: Slack only
+delivers the channel event when the hosted app is a member of that channel.
+
 The custom OAuth provider uses PKCE for the user authorization flow, while
 Slack performs the server-side token exchange with the Salesforce consumer
 secret kept in its encrypted external-auth store. The public repository holds

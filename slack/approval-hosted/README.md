@@ -15,7 +15,9 @@ This Slack-hosted reference listens for a ✅ reaction and forwards a compact, a
    consumer secret out of the project and terminal history.
 4. Create a dedicated Slack channel, such as `#readycurrent-approvals`. Some
    Enterprise Grid policies block API-created channels; creating it in Slack's
-   normal UI is an acceptable one-time admin step.
+   normal UI is an acceptable one-time admin step. Invite **Beacon Approval
+   Bridge** to that channel; Slack requires a hosted workflow app to be a member
+   of every channel where its event trigger listens.
 5. Replace the three placeholder values in `config.ts` with the demo-org
    hostname, the Salesforce consumer key, and the dedicated Slack channel ID.
    Never commit those environment-specific values; restore the placeholders
